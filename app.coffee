@@ -50,12 +50,14 @@ rodeoVersions = [
       "linux-32"    : "linux-32.zip"
       "linux-64"    : "linux-64.zip"
       "darwin_x64"  : "#{BASE_URL}/1.1.0/Rodeo-v1.1.0-darwin_64.zip"
-      "windows"     : "windows.zip"
+      "windows_64"  : "#{BASE_URL}/1.1.0/Rodeo-v1.1.0-windows_64.zip"
+      "windows_32"  : "#{BASE_URL}/1.1.0/Rodeo-v1.1.0-windows_32.zip"
     }
   }
 ]
 
 formatVersion = (v, platform) ->
+  platform = platform.replace("win32", "windows")
   data = {
     version: v.version,
     url: v.urls[platform || "darwin_x64"],
