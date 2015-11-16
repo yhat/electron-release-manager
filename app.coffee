@@ -41,34 +41,15 @@ app.use less(path.join(__dirname, "public"), {}, {}, { sourceMap: true, compress
 app.use express.static(path.join(__dirname, "/public"))
 
 
+BASE_URL = "http://rodeo-releases.s3.amazonaws.com"
 rodeoVersions = [
   {
-    version: "1.0.3",
+    version: "1.1.0",
     pub_date: "2015-11-15T12:29:53+01:00",
     urls: {
       "linux-32"    : "linux-32.zip"
       "linux-64"    : "linux-64.zip"
-      "darwin_x64"  : "http://rodeo-releases.s3.amazonaws.com/1.0.3/Rodeo.zip"
-      "windows"     : "windows.zip"
-    }
-  },
-  {
-    version: "1.0.2",
-    pub_date: "2015-11-15T12:29:53+01:00",
-    urls: {
-      "linux-32"    : "linux-32.zip"
-      "linux-64"    : "linux-64.zip"
-      "darwin_x64"  : "http://rodeo-releases.s3.amazonaws.com/1.0.2/Rodeo.zip"
-      "windows"     : "windows.zip"
-    }
-  },
-  {
-    version: "1.0.1" ,
-    pub_date: "2015-11-14T12:29:53+01:00",
-    urls: {
-      "linux-32"    : "linux-32.zip"
-      "linux-64"    : "linux-64.zip"
-      "darwin_x64"  : "http://rodeo-releases.s3.amazonaws.com/1.0.2/Rodeo.zip"
+      "darwin_x64"  : "#{BASE_URL}/1.1.0/Rodeo-v1.1.0-darwin_64.zip"
       "windows"     : "windows.zip"
     }
   }
