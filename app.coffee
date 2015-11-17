@@ -44,6 +44,17 @@ app.use express.static(path.join(__dirname, "/public"))
 BASE_URL = "http://rodeo-releases.s3.amazonaws.com"
 rodeoVersions = [
   {
+    version: "1.1.2",
+    pub_date: "2015-11-17T12:29:53+01:00",
+    urls: {
+      "linux-32"    : "linux-32.zip"
+      "linux-64"    : "linux-64.zip"
+      "darwin_x64"  : "#{BASE_URL}/1.1.2/Rodeo-v1.1.2-darwin_64.zip"
+      "windows_x64" : "#{BASE_URL}/1.1.2/Rodeo-v1.1.2-windows_64.zip"
+      "windows_ia32": "#{BASE_URL}/1.1.2/Rodeo-v1.1.2-windows_32.zip"
+    }
+  },
+  {
     version: "1.1.1",
     pub_date: "2015-11-17T12:29:53+01:00",
     urls: {
