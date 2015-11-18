@@ -11,6 +11,7 @@ less = require("less-middleware")
 colors = require("colors")
 _ = require("underscore")
 semver = require("semver")
+rodeoVersions = require("./rodeo-versions")
 
 
 app = express()
@@ -41,77 +42,52 @@ app.use less(path.join(__dirname, "public"), {}, {}, { sourceMap: true, compress
 app.use express.static(path.join(__dirname, "/public"))
 
 
-BASE_URL = "http://rodeo-releases.s3.amazonaws.com"
-rodeoVersions = [
-  {
-    version: "1.1.3",
-    pub_date: "2015-11-17T12:29:53+01:00",
-    urls: {
-      "linux-32"    : "linux-32.zip"
-      "linux-64"    : "linux-64.zip"
-      "darwin_x64"  : "#{BASE_URL}/1.1.3/Rodeo-v1.1.3-darwin_64.zip"
-      "windows_x64" : "#{BASE_URL}/1.1.3/Rodeo-v1.1.3-windows_64.zip"
-      "windows_ia32": "#{BASE_URL}/1.1.3/Rodeo-v1.1.3-windows_32.zip"
-    }
-  },
-  {
-    version: "1.1.2",
-    pub_date: "2015-11-17T12:29:53+01:00",
-    urls: {
-      "linux-32"    : "linux-32.zip"
-      "linux-64"    : "linux-64.zip"
-      "darwin_x64"  : "#{BASE_URL}/1.1.2/Rodeo-v1.1.2-darwin_64.zip"
-      "windows_x64" : "#{BASE_URL}/1.1.2/Rodeo-v1.1.2-windows_64.zip"
-      "windows_ia32": "#{BASE_URL}/1.1.2/Rodeo-v1.1.2-windows_32.zip"
-    }
-  },
-  {
-    version: "1.1.1",
-    pub_date: "2015-11-17T12:29:53+01:00",
-    urls: {
-      "linux-32"    : "linux-32.zip"
-      "linux-64"    : "linux-64.zip"
-      "darwin_x64"  : "#{BASE_URL}/1.1.1/Rodeo-v1.1.1-darwin_64.zip"
-      "windows_x64" : "#{BASE_URL}/1.1.1/Rodeo-v1.1.1-windows_64.zip"
-      "windows_ia32": "#{BASE_URL}/1.1.1/Rodeo-v1.1.1-windows_32.zip"
-    }
-  },
-  {
-    version: "1.1.0",
-    pub_date: "2015-11-16T12:29:53+01:00",
-    urls: {
-      "linux-32"    : "linux-32.zip"
-      "linux-64"    : "linux-64.zip"
-      "darwin_x64"  : "#{BASE_URL}/1.1.0/Rodeo-v1.1.0-darwin_64.zip"
-      "windows_x64" : "#{BASE_URL}/1.1.0/Rodeo-v1.1.0-windows_64.zip"
-      "windows_ia32": "#{BASE_URL}/1.1.0/Rodeo-v1.1.0-windows_32.zip"
-    }
-  }
-]
-
 formatVersion = (v, platform) ->
+  platform = platform || "darwin_x64"
   platform = platform.replace("win32", "windows")
   data = {
     version: v.version,
-    url: v.urls[platform || "darwin_x64"],
+    url: v.urls[platform],
     pub_date: v.pub_date
   }
   data
 
 app.get "/", (req, res) ->
   if req.query.version
-    if semver.lt(req.query.version, rodeoVersions[0].version)
-      v = rodeoVersions[0]
-      data = formatVersion v, req.query.platform
-      res.json data
-      return
+    rodeoVersions (err, versions) ->
+      if err
+        res.status(500)
+        res.send "Could not lookup latest version"
+        return
 
-  res.status(204)
-  res.end()
+      latest = versions[0]
+      if ! semver.valid(req.query.version)
+        res.status(400)
+        cleanVersion = semver.clean(req.query.version)
+        suggestion = ""
+        if cleanVersion
+          suggestion = "Did you mean '#{cleanVersion}'?"
+        res.send "Invalid version: #{req.query.version}." + suggestion
+      else if semver.lt(req.query.version, latest.version)
+        data = formatVersion latest, req.query.platform
+        res.json data
+      else
+        res.status(204)
+        res.end()
+  else
+    res.status(204)
+    res.end()
 
 app.get "/latest", (req, res) ->
-  v = rodeoVersions[0]
-  res.json formatVersion v, req.query.platform
+  rodeoVersions (err, versions) ->
+    if err
+      res.status(500)
+      res.send("Could not grab latest version")
+      return
+
+    latest = versions[0]
+    data = formatVersion latest, req.query.platform
+    res.json data
 
 # catch 404 and forward to error handler
 app.use (req, res, next) ->
