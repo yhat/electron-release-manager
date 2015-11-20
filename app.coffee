@@ -52,14 +52,17 @@ platformMap = {
   "linux_32": "linux-32"
 }
 
-formatVersion = (v, platform, dmg) ->
+formatVersion = (v, platform, installer) ->
   platform = platform || "darwin_x64"
   platform = platform.replace("win32", "windows")
   platform = platformMap[platform]
 
   url = v.urls[platform]
-  if dmg==true and platform=="darwin_x64"
+  if installer==true and platform=="darwin_x64"
     url = url.replace(".zip", ".dmg")
+  if installer==true and /windows/.test(platform)
+    url = url.replace(".zip", ".exe")
+
 
   data = {
     version: v.version,
