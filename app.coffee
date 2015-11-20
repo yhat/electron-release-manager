@@ -58,8 +58,8 @@ formatVersion = (v, platform, dmg) ->
   platform = platformMap[platform]
 
   url = v.urls[platform]
-  if dmg and platform=="darwin_x64"
-    url.replace(".zip", ".dmg")
+  if dmg==true and platform=="darwin_x64"
+    url = url.replace(".zip", ".dmg")
 
   data = {
     version: v.version,
