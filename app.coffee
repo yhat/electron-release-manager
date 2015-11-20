@@ -105,6 +105,10 @@ app.get "/latest", (req, res) ->
     data = formatVersion latest, req.query.platform, true
     res.redirect data.url
 
+app.post "/crash", (req, res) ->
+  console.log req.body
+  res.send "OK"
+
 # catch 404 and forward to error handler
 app.use (req, res, next) ->
   err = new Error("Not Found")
