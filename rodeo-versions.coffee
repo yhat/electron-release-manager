@@ -36,7 +36,8 @@ module.exports = (fn) ->
     data.Contents.map (obj) ->
       v = obj.Key.split('/')[0]
       if v not in versions
-        versions.push v
+        if semver.valid(v)
+          versions.push v
 
     versions = versions.sort(semver.rcompare)
     versions = versions.map generateVersion
