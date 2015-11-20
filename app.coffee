@@ -42,9 +42,20 @@ app.use less(path.join(__dirname, "public"), {}, {}, { sourceMap: true, compress
 app.use express.static(path.join(__dirname, "/public"))
 
 
+platformMap = {
+  "darwin": "darwin_x64"
+  "osx": "darwin_x64"
+  "windows_64": "windows_x64"
+  "windows_32": "windows_ia32"
+  "linux_64": "linux-64"
+  "linux_32": "linux-32"
+}
+
 formatVersion = (v, platform) ->
   platform = platform || "darwin_x64"
   platform = platform.replace("win32", "windows")
+  platform = platformMap[platform]
+
   data = {
     version: v.version,
     url: v.urls[platform],
