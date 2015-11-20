@@ -72,6 +72,8 @@ app.get "/", (req, res) ->
         return
 
       latest = versions[0]
+      console.log latest
+      console.log req.query
       if ! semver.valid(req.query.version)
         res.status(400)
         cleanVersion = semver.clean(req.query.version)
