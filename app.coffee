@@ -52,14 +52,18 @@ platformMap = {
   "linux_32": "linux-32"
 }
 
-formatVersion = (v, platform) ->
+formatVersion = (v, platform, dmg) ->
   platform = platform || "darwin_x64"
   platform = platform.replace("win32", "windows")
   platform = platformMap[platform]
 
+  url = v.urls[platform]
+  if dmg and platform=="darwin_x64"
+    url.replace(".zip", ".dmg")
+
   data = {
     version: v.version,
-    url: v.urls[platform],
+    url: url,
     pub_date: v.pub_date
   }
   data
@@ -98,7 +102,7 @@ app.get "/latest", (req, res) ->
       return
 
     latest = versions[0]
-    data = formatVersion latest, req.query.platform
+    data = formatVersion latest, req.query.platform, true
     res.redirect data.url
 
 # catch 404 and forward to error handler
