@@ -7,8 +7,8 @@ generateVersion = (version) ->
   {
     version: version,
     urls: {
-      "linux-32"    : "linux-32.zip"
-      "linux-64"    : "linux-64.zip"
+      "linux-32"    : "#{BASE_URL}/#{version}/Rodeo-v#{version}-linux-32.zip"
+      "linux-64"    : "#{BASE_URL}/#{version}/Rodeo-v#{version}-linux-64.zip"
       "darwin_x64"  : "#{BASE_URL}/#{version}/Rodeo-v#{version}-darwin_64.zip"
       "windows_x64" : "#{BASE_URL}/#{version}/Rodeo-v#{version}-windows_64.zip"
       "windows_ia32": "#{BASE_URL}/#{version}/Rodeo-v#{version}-windows_32.zip"
