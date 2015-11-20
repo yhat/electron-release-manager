@@ -43,6 +43,7 @@ app.use express.static(path.join(__dirname, "/public"))
 
 
 platformMap = {
+  "darwin_x64": "darwin_x64"
   "darwin": "darwin_x64"
   "osx": "darwin_x64"
   "windows_64": "windows_x64"
@@ -72,8 +73,6 @@ app.get "/", (req, res) ->
         return
 
       latest = versions[0]
-      console.log latest
-      console.log req.query
       if ! semver.valid(req.query.version)
         res.status(400)
         cleanVersion = semver.clean(req.query.version)
@@ -83,7 +82,6 @@ app.get "/", (req, res) ->
         res.send "Invalid version: #{req.query.version}." + suggestion
       else if semver.lt(req.query.version, latest.version)
         data = formatVersion latest, req.query.platform
-        console.log data
         res.json data
       else
         res.status(204)
