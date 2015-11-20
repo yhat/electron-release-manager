@@ -99,7 +99,7 @@ app.get "/latest", (req, res) ->
 
     latest = versions[0]
     data = formatVersion latest, req.query.platform
-    res.json data
+    res.redirect data.url
 
 # catch 404 and forward to error handler
 app.use (req, res, next) ->
