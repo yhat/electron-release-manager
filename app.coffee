@@ -48,8 +48,8 @@ platformMap = {
   "osx": "darwin_x64"
   "windows_64": "windows_x64"
   "windows_32": "windows_ia32"
-  "linux_64": "linux-64"
-  "linux_32": "linux-32"
+  "linux_64": "linux_64"
+  "linux_32": "linux_32"
 }
 
 formatVersion = (v, platform, installer) ->
