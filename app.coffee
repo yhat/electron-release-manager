@@ -63,7 +63,6 @@ formatVersion = (v, platform, installer) ->
   if installer==true and /windows/.test(platform)
     url = url.replace(".zip", ".exe")
 
-
   data = {
     version: v.version,
     url: url,
