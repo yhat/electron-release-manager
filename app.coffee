@@ -11,7 +11,7 @@ less = require("less-middleware")
 colors = require("colors")
 _ = require("underscore")
 semver = require("semver")
-rodeoVersions = require("./rodeo-versions")
+rodeoVersions = require("./versions")
 
 
 app = express()

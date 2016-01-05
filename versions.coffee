@@ -1,7 +1,7 @@
 AWS = require('aws-sdk')
 semver = require("semver")
 # looks for AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY
-BASE_URL = "http://rodeo-releases.s3.amazonaws.com"
+BASE_URL = process.env.BASE_URL || "http://rodeo-releases.s3.amazonaws.com"
 
 generateVersion = (version) ->
   {
@@ -26,7 +26,6 @@ module.exports = (fn) ->
     MaxKeys: 10000
   }
 
-  BASE_URL = "http://rodeo-releases.s3.amazonaws.com"
   s3.listObjects bucketParams, (err, data) ->
     if err
       console.log err
