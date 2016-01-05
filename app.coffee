@@ -11,7 +11,7 @@ less = require("less-middleware")
 colors = require("colors")
 _ = require("underscore")
 semver = require("semver")
-rodeoVersions = require("./versions")
+appVersions = require("./versions")
 
 
 app = express()
@@ -72,7 +72,7 @@ formatVersion = (v, platform, installer) ->
 
 app.get "/", (req, res) ->
   if req.query.version
-    rodeoVersions (err, versions) ->
+    appVersions (err, versions) ->
       if err
         res.status(500)
         res.send "Could not lookup latest version"
@@ -97,7 +97,7 @@ app.get "/", (req, res) ->
     res.end()
 
 app.get "/latest", (req, res) ->
-  rodeoVersions (err, versions) ->
+  appVersions (err, versions) ->
     if err
       res.status(500)
       res.send("Could not grab latest version")
@@ -110,6 +110,14 @@ app.get "/latest", (req, res) ->
 app.post "/crash", (req, res) ->
   console.log req.body
   res.send "OK"
+
+app.get "/versions", (req, res) ->
+  appVersions (err, versions) ->
+    if err
+      res.status(500)
+      res.send "Could not lookup latest version"
+      return
+    res.json versions
 
 # catch 404 and forward to error handler
 app.use (req, res, next) ->
