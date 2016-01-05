@@ -117,7 +117,7 @@ app.get "/versions", (req, res) ->
       res.status(500)
       res.send "Could not lookup latest version"
       return
-    res.json versions
+    res.render "versions", { versions: versions, lambdas: { basename: (x) -> path.basename(x) }}
 
 # catch 404 and forward to error handler
 app.use (req, res, next) ->

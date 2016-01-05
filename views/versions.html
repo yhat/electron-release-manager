@@ -1,0 +1,26 @@
+
+
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th>Version</th>
+      <th>OS X</th>
+      <th>Windows 32</th>
+      <th>Windows 64</th>
+      <th>Linux 32</th>
+      <th>Linux 64</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#versions}}
+      <tr>
+        <td>{{ version }}</td>
+        <td><a href="{{ urls.darwin_x64 }}">{{#lambdas.basename}}{{ urls.darwin_x64 }}{{/lambdas.basename}}</a></td>
+        <td><a href="{{ urls.windows_ia32 }}">{{#lambdas.basename}}{{ urls.windows_ia32 }}{{/lambdas.basename}}</a></td>
+        <td><a href="{{ urls.windows_x64 }}">{{#lambdas.basename}}{{ urls.windows_x64 }}{{/lambdas.basename}}</a></td>
+        <td><a href="{{ urls.linux_32 }}">{{#lambdas.basename}}{{ urls.linux_32 }}{{/lambdas.basename}}</a></td>
+        <td><a href="{{ urls.linux_64 }}">{{#lambdas.basename}}{{ urls.linux_64 }}{{/lambdas.basename}}</a></td>
+      </tr>
+    {{/versions}}
+  </tbody>
+</table>
