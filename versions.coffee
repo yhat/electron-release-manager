@@ -22,7 +22,7 @@ module.exports = (fn) ->
   s3 = new AWS.S3()
 
   bucketParams = {
-    Bucket: "rodeo-releases"
+    Bucket: process.env.BUCKET || "rodeo-releases"
     MaxKeys: 10000
   }
 
