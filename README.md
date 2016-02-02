@@ -67,6 +67,7 @@ long time. Remember to upload each file corresponding to the directory structure
 
 ```bash
 echo "uploading OSX"
+VERSION="1.2.1"
 if [ -f build/darwin/x64/Rodeo-darwin-x64/Rodeo.dmg ]; then
     s3cmd -P put build/darwin/x64/Rodeo-darwin-x64/Rodeo.dmg "s3://rodeo-releases/${VERSION}/Rodeo-v${VERSION}-darwin_64.dmg"
 fi
@@ -85,3 +86,7 @@ fi
 ...
 ...
 ```
+
+## Other Suggestions
+- https://github.com/loopline-systems/electron-builder
+- https://github.com/maxogden/electron-packager
