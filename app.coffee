@@ -24,7 +24,6 @@ app.set 'layout', 'layout'       # use layout.html as the default layout
 app.set 'partials',
   header: 'partials/header'
   footer: 'partials/footer'
-  footer_scripts: 'partials/footer-scripts'
 
 # app.enable 'view cache'
 app.engine 'html', require('hogan-express')
