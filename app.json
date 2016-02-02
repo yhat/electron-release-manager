@@ -9,6 +9,11 @@
   ],
   "repository": "https://github.com/yhat/electron-release-manager/",
   "env": {
+    "APP_NAME": {
+      "description": "Name of the app you're releasing.",
+      "value": "my-cool-app",
+      "required": true
+    },
     "AWS_ACCESS_KEY_ID": {
       "description": "Your AWS access key.",
       "value": "ABCD12345678",
