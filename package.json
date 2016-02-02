@@ -1,10 +1,10 @@
 {
-  "name": "rodeo-auto-update",
+  "name": "electron-release-manager",
   "author": {
     "name": "The Yhat Team",
-    "url": "www.yhathq.com"
+    "url": "https://www.yhat.com/"
   },
-  "description": "Rodeo auto-updates for in app updating.",
+  "description": "Release manager and auto-update handler for Electron apps.",
   "version": "0.0.1",
   "private": true,
   "scripts": {
