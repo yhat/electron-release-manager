@@ -19,9 +19,9 @@
       "value": "AQWEIFOGSDFOW82392/ER9",
       "required": true
     },
-    "BASE_URL": {
-      "description": "URL for your s3 bucket where your apps are distributed.",
-      "value": "http://<bucket-name>.s3.amazonaws.com",
+    "BUCKET": {
+      "description": "s3 bucket where your apps are distributed.",
+      "value": "s3://<bucket-name>/",
       "required": true
     }
   }
