@@ -1,7 +1,7 @@
 AWS = require('aws-sdk')
 semver = require("semver")
 # looks for AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY
-BASE_URL = process.env.BASE_URL || "http://#{process.env.BUCKET}.s3.amazonaws.com"
+BASE_URL = process.env.BASE_URL || "https://#{process.env.BUCKET}.s3.amazonaws.com"
 APP_NAME = process.env.APP_NAME
 
 generateVersion = (version) ->
